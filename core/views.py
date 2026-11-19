@@ -8,14 +8,14 @@ from .models import Prestamo
 @login_required
 def solicitar_prestamo(request):
     if request.method == 'POST':
-        form = PrestamoForm(request.POST)
+        form = PrestamoForm(request.POST, user=request.user)
         if form.is_valid():
             prestamo = form.save(commit=False)
             prestamo.docente = request.user
             prestamo.save()
             return redirect('mis_prestamos')
     else:
-        form = PrestamoForm()
+        form = PrestamoForm(user=request.user)
     return render(request, 'prestamo_form.html', {'form': form})
 
 @login_required
