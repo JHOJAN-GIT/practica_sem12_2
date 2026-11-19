@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Operación exitosa | MediCare</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f3f7f8;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #243746;
+        }
+
+        .header {
+            background: #103b46;
+            padding: 17px 7%;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            background: #168b78;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .brand-name {
+            font-size: 19px;
+            font-weight: 700;
+        }
+
+        .brand-subtitle {
+            color: #b7d4d5;
+            font-size: 10px;
+            margin-top: 3px;
+            letter-spacing: 1px;
+        }
+
+        .main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 35px 20px;
+        }
+
+        .success-card {
+            width: 100%;
+            max-width: 540px;
+            background: white;
+            border: 1px solid #e3eceb;
+            border-radius: 15px;
+            padding: 45px 42px;
+            text-align: center;
+            box-shadow: 0 12px 40px rgba(16,59,70,.06);
+        }
+
+        .success-icon {
+            width: 85px;
+            height: 85px;
+            background: #e4f6ee;
+            color: #169765;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 42px;
+            font-weight: 600;
+            margin: 0 auto 25px;
+            border: 7px solid #f3fbf7;
+        }
+
+        .eyebrow {
+            color: #168b78;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 10px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            color: #103b46;
+            font-size: 27px;
+            margin-bottom: 13px;
+        }
+
+        .message {
+            color: #71838a;
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 27px;
+        }
+
+        .message strong {
+            color: #344d58;
+        }
+
+        .status-box {
+            background: #f0f8f5;
+            border: 1px solid #dcefe7;
+            border-radius: 9px;
+            padding: 16px;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .status-box strong {
+            color: #176b5d;
+            display: block;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .status-box p {
+            color: #6d8980;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: #168b78;
+            color: white;
+            border-radius: 7px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            transition: .2s;
+        }
+
+        .btn:hover {
+            background: #107463;
+            transform: translateY(-1px);
+        }
+
+        .bottom-text {
+            font-size: 11px;
+            color: #9aa8ad;
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+
+        footer {
+            background: white;
+            border-top: 1px solid #e5eded;
+            text-align: center;
+            padding: 23px;
+            color: #93a2a7;
+            font-size: 11px;
+            line-height: 1.8;
+        }
+
+        footer strong {
+            color: #49636b;
+        }
+
+        @media(max-width: 550px) {
+            .success-card {
+                padding: 35px 23px;
+            }
+
+            h1 {
+                font-size: 23px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="brand-icon">+</div>
+
+    <div>
+        <div class="brand-name">MEDICARE</div>
+        <div class="brand-subtitle">CENTRO DE ATENCIÓN MÉDICA</div>
+    </div>
+
+</header>
+
+<main class="main">
+
+    <section class="success-card">
+
+        <div class="success-icon">✓</div>
+
+        <div class="eyebrow">Proceso completado</div>
+
+        <h1>¡Operación exitosa!</h1>
+
+        <div class="message">
+            {{ mensaje }}
+        </div>
+
+        <div class="status-box">
+            <strong>Información del sistema</strong>
+            <p>
+                La operación ha sido procesada correctamente.
+                Puedes continuar utilizando la plataforma de gestión médica.
+            </p>
+        </div>
+
+        <a href="/" class="btn">
+            Volver al formulario →
+        </a>
+
+        <div class="bottom-text">
+            Gracias por utilizar nuestra plataforma.<br>
+            Tu bienestar es nuestra prioridad.
+        </div>
+
+    </section>
+
+</main>
+
+<footer>
+    <strong>MEDICARE · Centro de Atención Médica</strong><br>
+    Plataforma de Gestión de Citas Médicas
+</footer>
+
+</body>
+</html>

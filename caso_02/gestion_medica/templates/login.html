@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro Médico UNCP</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f1f5f9;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            color: #1e293b;
+        }
+
+        .login-wrapper {
+            width: 100%;
+            max-width: 480px;
+        }
+
+        .brand {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .brand-icon {
+            width: 78px;
+            height: 78px;
+            background: #1e3a5f;
+            color: white;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 34px;
+            font-weight: bold;
+            margin: 0 auto 18px;
+        }
+
+        .brand h1 {
+            font-size: 26px;
+            margin: 0;
+            color: #1e293b;
+        }
+
+        .brand p {
+            color: #64748b;
+            font-size: 15px;
+            margin-top: 8px;
+        }
+
+        .card {
+            background: white;
+            padding: 45px;
+            border-radius: 14px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.06);
+        }
+
+        .card h2 {
+            font-size: 26px;
+            margin: 0 0 10px;
+            color: #1e293b;
+        }
+
+        .description {
+            font-size: 16px;
+            color: #64748b;
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 9px;
+            color: #334155;
+        }
+
+        input {
+            width: 100%;
+            padding: 16px 18px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 17px;
+            outline: none;
+            transition: border .2s, box-shadow .2s;
+        }
+
+        input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, .10);
+        }
+
+        .errorlist {
+            color: #dc2626;
+            font-size: 14px;
+            list-style: none;
+            padding: 0;
+            margin: 6px 0 0;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 17px;
+            background: #1e3a5f;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background .2s;
+        }
+
+        .btn:hover {
+            background: #274c77;
+        }
+
+        .security {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 27px;
+            font-size: 14px;
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .security strong {
+            color: #334155;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 13px;
+            color: #94a3b8;
+            margin-top: 26px;
+            line-height: 1.7;
+        }
+
+        @media(max-width: 480px) {
+            .card { padding: 30px 22px; }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-wrapper">
+
+    <div class="brand">
+        <div class="brand-icon">U</div>
+        <h1>Universidad Nacional del Centro del Perú</h1>
+        <!-- CAMBIO 1: Texto adaptado al Caso 2 -->
+        <p>Plataforma de Gestión de Consultas Médicas</p>
+    </div>
+
+    <div class="card">
+
+        <h2>Bienvenido</h2>
+        <p class="description">
+            <!-- CAMBIO 2: Descripción adaptada al Caso 2 -->
+            Ingresa tus credenciales institucionales para acceder
+            al sistema de agendamiento de citas y control médico.
+        </p>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="form-group">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+                {{ form.username.errors }}
+            </div>
+
+            <div class="form-group">
+                {{ form.password.label_tag }}
+                {{ form.password }}
+                {{ form.password.errors }}
+            </div>
+
+            <button type="submit" class="btn">
+                Iniciar sesión
+            </button>
+        </form>
+
+        <div class="security">
+            <strong>Acceso seguro y confidencial</strong><br>
+            Este sistema está destinado exclusivamente al personal médico
+            y administrativo autorizado del Centro Médico Universitario.
+        </div>
+
+    </div>
+
+    <footer>
+        Universidad Nacional del Centro del Perú<br>
+        Centro Médico Universitario · 2026
+    </footer>
+
+</div>
+
+</body>
+</html>

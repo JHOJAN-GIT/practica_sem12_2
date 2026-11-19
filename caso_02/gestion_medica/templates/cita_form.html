@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendar Cita | MediCare</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f3f7f8;
+            color: #243746;
+        }
+
+        /* HEADER */
+
+        .header {
+            background: #103b46;
+            color: white;
+            padding: 17px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: #168b78;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .brand-name {
+            font-size: 19px;
+            font-weight: 700;
+            letter-spacing: .5px;
+        }
+
+        .brand-subtitle {
+            font-size: 10px;
+            color: #b7d4d5;
+            margin-top: 3px;
+            letter-spacing: 1px;
+        }
+
+        .logout {
+            color: #e2f3f1;
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,.25);
+            padding: 10px 17px;
+            border-radius: 7px;
+            font-size: 12px;
+            transition: .2s;
+        }
+
+        .logout:hover {
+            background: rgba(255,255,255,.12);
+        }
+
+        /* MAIN */
+
+        .main {
+            max-width: 1120px;
+            margin: 45px auto;
+            padding: 0 22px;
+        }
+
+        .breadcrumb {
+            font-size: 12px;
+            color: #8b9ba3;
+            margin-bottom: 22px;
+        }
+
+        .intro {
+            margin-bottom: 28px;
+        }
+
+        .eyebrow {
+            color: #168b78;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 10px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .intro h1 {
+            font-size: 30px;
+            color: #103b46;
+            font-weight: 700;
+            margin-bottom: 9px;
+        }
+
+        .intro p {
+            font-size: 14px;
+            color: #73858e;
+            line-height: 1.6;
+        }
+
+        /* LAYOUT */
+
+        .layout {
+            display: grid;
+            grid-template-columns: 1fr 310px;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 13px;
+            padding: 34px;
+            border: 1px solid #e4ecec;
+            box-shadow: 0 8px 30px rgba(16,59,70,.045);
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .section-icon {
+            width: 39px;
+            height: 39px;
+            background: #e5f5f1;
+            color: #168b78;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9px;
+            font-size: 20px;
+        }
+
+        .section-heading h2 {
+            font-size: 17px;
+            color: #103b46;
+        }
+
+        .form-description {
+            font-size: 12px;
+            color: #87969d;
+            margin: 0 0 25px 51px;
+            line-height: 1.5;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid #edf1f2;
+            margin-bottom: 25px;
+        }
+
+        .field {
+            margin-bottom: 21px;
+        }
+
+        label {
+            display: block;
+            color: #344d58;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #dce6e8;
+            border-radius: 7px;
+            font-family: inherit;
+            font-size: 13px;
+            color: #344d58;
+            background: #fcfefe;
+            outline: none;
+            transition: .2s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: #168b78;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(22,139,120,.09);
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: #a8b5ba;
+        }
+
+        textarea {
+            min-height: 115px;
+            resize: vertical;
+        }
+
+        .field-help {
+            color: #94a3a8;
+            font-size: 11px;
+            margin-top: 6px;
+        }
+
+        .errorlist {
+            color: #dc4444;
+            font-size: 12px;
+            list-style: none;
+            padding: 0;
+            margin-top: 6px;
+        }
+
+        .non-field-errors {
+            color: #a52d2d;
+            background: #fff0f0;
+            border: 1px solid #ffd6d6;
+            border-radius: 7px;
+            padding: 13px;
+            font-size: 12px;
+            margin-bottom: 22px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 7px;
+            background: #168b78;
+            color: white;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .25s;
+            margin-top: 5px;
+        }
+
+        .submit-btn:hover {
+            background: #107463;
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(22,139,120,.2);
+        }
+
+        /* SIDE PANEL */
+
+        .side-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .welcome-card {
+            background: #103b46;
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-card::after {
+            content: "+";
+            position: absolute;
+            right: 13px;
+            bottom: -42px;
+            font-size: 150px;
+            color: rgba(255,255,255,.055);
+            font-weight: 300;
+        }
+
+        .welcome-card .small {
+            color: #8fd1c3;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 13px;
+        }
+
+        .welcome-card h3 {
+            font-size: 20px;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+
+        .welcome-card p {
+            font-size: 12px;
+            color: #c0d4d7;
+            line-height: 1.7;
+        }
+
+        .info-card {
+            background: white;
+            border: 1px solid #e4ecec;
+            padding: 23px;
+            border-radius: 12px;
+        }
+
+        .info-card h3 {
+            font-size: 14px;
+            color: #103b46;
+            margin-bottom: 20px;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 19px;
+        }
+
+        .info-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-icon {
+            width: 33px;
+            height: 33px;
+            flex-shrink: 0;
+            background: #e8f5f2;
+            color: #168b78;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .info-row strong {
+            display: block;
+            font-size: 12px;
+            color: #344d58;
+            margin-bottom: 4px;
+        }
+
+        .info-row span {
+            display: block;
+            color: #8a999f;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .notice {
+            background: #edf7f5;
+            border: 1px solid #d8eeea;
+            border-radius: 9px;
+            padding: 16px;
+            font-size: 11px;
+            color: #52746f;
+            line-height: 1.7;
+        }
+
+        .notice strong {
+            color: #176b5d;
+        }
+
+        /* FOOTER */
+
+        footer {
+            margin-top: 55px;
+            background: white;
+            border-top: 1px solid #e5eded;
+            padding: 24px;
+            text-align: center;
+            color: #93a2a7;
+            font-size: 11px;
+            line-height: 1.8;
+        }
+
+        footer strong {
+            color: #49636b;
+        }
+
+        @media(max-width: 800px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            .side-panel {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .notice {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media(max-width: 550px) {
+            .header {
+                padding: 14px 18px;
+            }
+
+            .brand-name {
+                font-size: 15px;
+            }
+
+            .main {
+                margin: 28px auto;
+            }
+
+            .intro h1 {
+                font-size: 24px;
+            }
+
+            .form-card {
+                padding: 23px 18px;
+            }
+
+            .side-panel {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="brand">
+        <div class="brand-icon">+</div>
+        <div>
+            <div class="brand-name">MEDICARE</div>
+            <div class="brand-subtitle">CENTRO DE ATENCIÓN MÉDICA</div>
+        </div>
+    </div>
+
+    <a href="{% url 'logout' %}" class="logout">
+        Cerrar sesión
+    </a>
+
+</header>
+
+<main class="main">
+
+    <div class="breadcrumb">
+        Inicio / Atención médica / Agendar cita
+    </div>
+
+    <section class="intro">
+        <div class="eyebrow">Atención y bienestar</div>
+        <h1>Agenda tu cita médica</h1>
+        <p>
+            Programa tu próxima consulta de manera sencilla.
+            Completa los datos solicitados para registrar tu cita.
+        </p>
+    </section>
+
+    <div class="layout">
+
+        <section class="form-card">
+
+            <div class="section-heading">
+                <div class="section-icon">✚</div>
+                <h2>Información de la consulta</h2>
+            </div>
+
+            <p class="form-description">
+                Ingresa los datos del paciente y los detalles de la atención médica.
+            </p>
+
+            <hr class="divider">
+
+            {% if form.non_field_errors %}
+                <div class="non-field-errors">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="field">
+                    <label>Paciente</label>
+                    {{ form.paciente }}
+                    {{ form.paciente.errors }}
+                </div>
+
+                <div class="field">
+                    <label>Médico</label>
+                    {{ form.medico }}
+                    {{ form.medico.errors }}
+                </div>
+
+                <div class="field">
+                    <label>Fecha y hora de la cita</label>
+                    {{ form.fecha_hora }}
+                    {{ form.fecha_hora.errors }}
+                    <div class="field-help">
+                        Selecciona la fecha y hora solicitadas para tu consulta.
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Motivo de consulta</label>
+                    {{ form.motivo }}
+                    {{ form.motivo.errors }}
+                    <div class="field-help">
+                        Describe brevemente el motivo de atención (mínimo 20 letras).
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    Registrar cita médica →
+                </button>
+
+            </form>
+
+        </section>
+
+        <aside class="side-panel">
+
+            <div class="welcome-card">
+                <div class="small">Tu salud es nuestra prioridad</div>
+                <h3>Una atención organizada comienza aquí.</h3>
+                <p>
+                    Registra tu solicitud de consulta y proporciona
+                    la información necesaria para coordinar tu atención.
+                </p>
+            </div>
+
+            <div class="info-card">
+
+                <h3>Antes de agendar</h3>
+
+                <div class="info-row">
+                    <div class="info-icon">01</div>
+                    <div>
+                        <strong>Datos del paciente</strong>
+                        <span>Selecciona correctamente al paciente que recibirá la atención.</span>
+                    </div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-icon">02</div>
+                    <div>
+                        <strong>Profesional médico</strong>
+                        <span>Selecciona el médico correspondiente a tu consulta.</span>
+                    </div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-icon">03</div>
+                    <div>
+                        <strong>Motivo de consulta</strong>
+                        <span>Describe el motivo para facilitar la organización de la atención.</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="notice">
+                <strong>Información importante</strong><br>
+                Verifica los datos antes de registrar tu solicitud.
+                Si necesitas modificar una cita, comunícate con el área
+                de atención correspondiente.
+            </div>
+
+        </aside>
+
+    </div>
+
+</main>
+
+<footer>
+    <strong>MEDICARE · Centro de Atención Médica</strong><br>
+    Plataforma de Gestión de Citas Médicas<br>
+    Atención organizada para el cuidado de tu salud.
+</footer>
+
+</body>
+</html>

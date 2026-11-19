@@ -1,0 +1,116 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel del Empleado | UNCP</title>
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+</head>
+<body>
+
+<div class="dashboard-page">
+    <main class="dashboard-container">
+
+        <header class="topbar">
+            <div class="topbar-brand">
+                <div class="topbar-icon">🏛</div>
+                <div>
+                    <h1>Gestión de Personal UNCP</h1>
+                    <p>Portal del empleado</p>
+                </div>
+            </div>
+
+            <a href="{% url 'logout' %}" class="btn btn-danger">
+                ↪ Cerrar sesión
+            </a>
+        </header>
+
+        <section class="dashboard-card">
+
+            <div class="welcome">
+                <small>Panel de trabajador</small>
+                <h2>¡Bienvenido, {{ request.user.username }}!</h2>
+                <p>
+                    Administra tu asistencia y realiza tus solicitudes
+                    desde este espacio institucional.
+                </p>
+            </div>
+
+            <div class="section-heading">
+                <h3>Información laboral</h3>
+                <span>Datos de tu cuenta</span>
+            </div>
+
+            <div class="attendance-item" style="margin-bottom: 28px;">
+                <small>Área asignada</small>
+                <strong>
+                    {{ request.user.empleado.area.nombre }}
+                </strong>
+            </div>
+
+            <div class="section-heading">
+                <h3>Registro de asistencia</h3>
+                <span><span class="status-dot"></span>Control diario</span>
+            </div>
+
+            <div class="attendance-grid">
+
+                <div class="attendance-item">
+                    <small>🟢 Hora de entrada</small>
+                    <strong>
+                        {{ asistencia.hora_entrada|default:"No registrada" }}
+                    </strong>
+                </div>
+
+                <div class="attendance-item">
+                    <small>🔴 Hora de salida</small>
+                    <strong>
+                        {{ asistencia.hora_salida|default:"No registrada" }}
+                    </strong>
+                </div>
+
+            </div>
+
+            <form method="POST" action="{% url 'marcar_asistencia' %}">
+                {% csrf_token %}
+
+                <div class="actions">
+                    <button
+                        type="submit"
+                        name="accion"
+                        value="entrada"
+                        class="btn btn-teal"
+                        {% if asistencia.hora_entrada %}disabled{% endif %}>
+                        ✓ Marcar entrada
+                    </button>
+
+                    <button
+                        type="submit"
+                        name="accion"
+                        value="salida"
+                        class="btn"
+                        {% if not asistencia.hora_entrada or asistencia.hora_salida %}disabled{% endif %}>
+                        ↗ Marcar salida
+                    </button>
+                </div>
+            </form>
+
+            <div class="actions" style="border-top: none; padding-top: 15px;">
+                <a href="{% url 'solicitar_permiso' %}" class="btn" style="width:100%;">
+                    + Solicitar permiso
+                </a>
+            </div>
+
+        </section>
+
+        <footer class="dashboard-footer">
+            Universidad Nacional del Centro del Perú · Gestión de Personal
+        </footer>
+
+    </main>
+</div>
+
+</body>
+</html>

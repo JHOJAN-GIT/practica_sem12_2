@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Error de Perfil</title>
+    <style>
+        body { font-family: Arial; text-align: center; padding: 50px; background: #f1f5f9; }
+        .card { background: white; padding: 40px; border-radius: 10px; max-width: 500px; margin: auto; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { color: #ef4444; }
+        a { color: #2563eb; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Acceso Denegado</h1>
+        <p>{{ msg }}</p>
+        <p>Por favor, contacta al administrador de RRHH para que te asigne un perfil.</p>
+        <br>
+        <a href="{% url 'logout' %}">Volver a iniciar sesión</a>
+    </div>
+</body>
+</html>

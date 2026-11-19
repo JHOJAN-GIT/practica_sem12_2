@@ -1,0 +1,101 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitar Permiso | UNCP</title>
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+</head>
+<body>
+
+<div class="permission-page">
+    <main class="permission-container">
+
+        <section class="permission-card">
+
+            <header class="permission-header">
+                <div class="permission-icon">📄</div>
+                <div>
+                    <h2>Solicitud de permiso</h2>
+                    <p>Completa los datos para registrar tu solicitud.</p>
+                </div>
+            </header>
+
+            {% if form.non_field_errors %}
+                <div class="error-box">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="permission-fields">
+
+                    <div class="full">
+                        <label class="field-label"
+                               for="{{ form.tipo.id_for_label }}">
+                            Tipo de permiso
+                        </label>
+                        {{ form.tipo }}
+                        {{ form.tipo.errors }}
+                    </div>
+
+                    <div>
+                        <label class="field-label"
+                               for="{{ form.fecha_inicio.id_for_label }}">
+                            Fecha de inicio
+                        </label>
+                        {{ form.fecha_inicio }}
+                        {{ form.fecha_inicio.errors }}
+                    </div>
+
+                    <div>
+                        <label class="field-label"
+                               for="{{ form.fecha_fin.id_for_label }}">
+                            Fecha de finalización
+                        </label>
+                        {{ form.fecha_fin }}
+                        {{ form.fecha_fin.errors }}
+                    </div>
+
+                    <div class="full">
+                        <label class="field-label"
+                               for="{{ form.motivo.id_for_label }}">
+                            Motivo de la solicitud
+                        </label>
+                        {{ form.motivo }}
+                        <p class="form-help">
+                            Describe claramente el motivo de tu solicitud.
+                            Se requiere un mínimo de 30 letras.
+                        </p>
+                        {{ form.motivo.errors }}
+                    </div>
+
+                </div>
+
+                <div class="permission-actions">
+                    <a href="{% url 'dashboard' %}" class="back-link">
+                        ← Volver al panel
+                    </a>
+
+                    <button type="submit" class="btn btn-teal">
+                        Enviar solicitud →
+                    </button>
+                </div>
+
+            </form>
+
+        </section>
+
+        <footer class="dashboard-footer">
+            UNCP · Sistema de Gestión de Personal
+        </footer>
+
+    </main>
+</div>
+
+</body>
+</html>
