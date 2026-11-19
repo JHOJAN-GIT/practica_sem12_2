@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Solicitar Préstamo</title>
+    <style>
+        body { font-family: Arial; background: #f8fafc; padding: 20px; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .nav { display: flex; justify-content: space-between; margin-bottom: 20px; }
+        .errorlist { color: red; font-size: 13px; list-style: none; padding: 0; }
+        .btn { padding: 10px 20px; background: #2563eb; color: white; text-decoration: none; border-radius: 5px; border: none; cursor: pointer; }
+        input, textarea { width: 100%; padding: 10px; margin-top: 5px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <h2>Nuevo Préstamo</h2>
+            <a href="{% url 'logout' %}" class="btn" style="background:#ef4444;">Cerrar Sesión</a>
+        </div>
+        
+        {% if form.non_field_errors %}
+            <div style="color: red; background: #fee2e2; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <label>Equipo:</label>
+            {{ form.equipo }} {{ form.equipo.errors }}
+            <label>Fecha Devolución:</label>
+            {{ form.fecha_devolucion }} {{ form.fecha_devolucion.errors }}
+            <label>Cantidad:</label>
+            {{ form.cantidad }} {{ form.cantidad.errors }}
+            <label>Observaciones:</label>
+            {{ form.observaciones }} {{ form.observaciones.errors }}
+            <button type="submit" class="btn">Solicitar</button>
+        </form>
+    </div>
+</body>
+</html>
