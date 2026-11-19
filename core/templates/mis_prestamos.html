@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Préstamos | Laboratorio UNCP</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f1f5f9;
+            margin: 0;
+            color: #1e293b;
+        }
+
+        .header {
+            background: #1e3a5f;
+            color: white;
+            padding: 22px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title {
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .header-subtitle {
+            color: #cbd5e1;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 13px 22px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 7px;
+            font-size: 15px;
+            font-weight: 600;
+            transition: background .2s;
+        }
+
+        .btn:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-danger {
+            background: #dc4444;
+        }
+
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
+
+        .main {
+            max-width: 1280px;
+            margin: 45px auto;
+            padding: 0 28px;
+        }
+
+        .breadcrumb {
+            font-size: 15px;
+            color: #94a3b8;
+            margin-bottom: 20px;
+        }
+
+        .page-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+
+        .page-heading h1 {
+            font-size: 32px;
+            margin: 0 0 9px;
+        }
+
+        .page-heading p {
+            color: #64748b;
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .table-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 34px;
+            box-shadow: 0 3px 12px rgba(15,23,42,.03);
+        }
+
+        .table-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+        }
+
+        .table-heading h2 {
+            font-size: 22px;
+            margin: 0;
+        }
+
+        .table-heading span {
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 720px;
+        }
+
+        th {
+            background: #f8fafc;
+            color: #475569;
+            font-size: 15px;
+            font-weight: 600;
+            text-align: left;
+            padding: 18px;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        td {
+            padding: 20px 18px;
+            font-size: 15px;
+            color: #475569;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .equipment-name {
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        .equipment-code {
+            display: block;
+            color: #94a3b8;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .status-activo {
+            color: #15803d;
+            background: #dcfce7;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            font-size: 14px;
+        }
+
+        .status-retrasado {
+            color: #b91c1c;
+            background: #fee2e2;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            font-size: 14px;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 45px 20px;
+            color: #64748b;
+        }
+
+        .empty-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 16px;
+            background: #eff6ff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #2563eb;
+            font-size: 28px;
+        }
+
+        .empty-message strong {
+            display: block;
+            color: #334155;
+            margin-bottom: 9px;
+        }
+
+        .empty-message p {
+            font-size: 15px;
+            margin: 0;
+        }
+
+        .bottom-info {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 22px;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 28px;
+            font-size: 13px;
+            color: #94a3b8;
+        }
+
+        @media(max-width: 650px) {
+            .header {
+                padding: 18px 20px;
+                align-items: flex-start;
+                gap: 15px;
+                flex-direction: column;
+            }
+
+            .page-heading {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .actions {
+                width: 100%;
+            }
+
+            .actions .btn {
+                text-align: center;
+                flex: 1;
+            }
+
+            .table-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+
+    <div>
+        <div class="header-title">UNCP | Laboratorio</div>
+        <div class="header-subtitle">Sistema de Gestión de Préstamos</div>
+    </div>
+
+    <div class="actions">
+        <a href="{% url 'solicitar_prestamo' %}" class="btn">
+            + Nuevo préstamo
+        </a>
+
+        <a href="{% url 'logout' %}" class="btn btn-danger">
+            Cerrar sesión
+        </a>
+    </div>
+
+</header>
+
+<main class="main">
+
+    <div class="breadcrumb">
+        Inicio / Gestión de préstamos / Historial
+    </div>
+
+    <div class="page-heading">
+
+        <div>
+            <h1>Mis préstamos</h1>
+            <p>Consulta el historial y estado de tus solicitudes de equipos.</p>
+        </div>
+
+        <a href="{% url 'solicitar_prestamo' %}" class="btn">
+            + Registrar solicitud
+        </a>
+
+    </div>
+
+    <section class="table-card">
+
+        <div class="table-heading">
+            <h2>Historial de préstamos</h2>
+            <span>Registro de tus solicitudes</span>
+        </div>
+
+        <div class="table-responsive">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Equipo</th>
+                        <th>Fecha de préstamo</th>
+                        <th>Fecha de devolución</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for prestamo in prestamos %}
+
+                    <tr>
+
+                        <td>
+                            <span class="equipment-name">
+                                {{ prestamo.equipo.nombre }}
+                            </span>
+
+                            <span class="equipment-code">
+                                Código: {{ prestamo.equipo.codigo_patrimonial }}
+                            </span>
+                        </td>
+
+                        <td>{{ prestamo.fecha_prestamo }}</td>
+
+                        <td>{{ prestamo.fecha_devolucion }}</td>
+
+                        <td>
+                            <span class="status-{{ prestamo.estado }}">
+                                {{ prestamo.get_estado_display }}
+                            </span>
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+                        <td colspan="4">
+                            <div class="empty-message">
+
+                                <div class="empty-icon">!</div>
+
+                                <strong>No tienes préstamos registrados</strong>
+
+                                <p>
+                                    Cuando realices una solicitud, aparecerá
+                                    aquí la información correspondiente.
+                                </p>
+
+                            </div>
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <div class="bottom-info">
+            <span>Información de préstamos asociados a tu cuenta.</span>
+            <span>Universidad Nacional del Centro del Perú</span>
+        </div>
+
+    </section>
+
+</main>
+
+<footer>
+    Sistema de Gestión de Laboratorio · UNCP · 2026
+</footer>
+
+</body>
+</html>

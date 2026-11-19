@@ -2,41 +2,359 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Solicitar Préstamo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo Préstamo | Laboratorio UNCP</title>
+
     <style>
-        body { font-family: Arial; background: #f8fafc; padding: 20px; }
-        .container { max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .nav { display: flex; justify-content: space-between; margin-bottom: 20px; }
-        .errorlist { color: red; font-size: 13px; list-style: none; padding: 0; }
-        .btn { padding: 10px 20px; background: #2563eb; color: white; text-decoration: none; border-radius: 5px; border: none; cursor: pointer; }
-        input, textarea { width: 100%; padding: 10px; margin-top: 5px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f1f5f9;
+            margin: 0;
+            color: #1e293b;
+        }
+
+        .header {
+            background: #1e3a5f;
+            color: white;
+            padding: 22px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title {
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .header-subtitle {
+            font-size: 14px;
+            color: #cbd5e1;
+            margin-top: 5px;
+        }
+
+        .logout {
+            background: rgba(255,255,255,.12);
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 7px;
+            font-size: 16px;
+            border: 1px solid rgba(255,255,255,.2);
+        }
+
+        .logout:hover {
+            background: rgba(255,255,255,.22);
+        }
+
+        .main {
+            max-width: 1100px;
+            margin: 45px auto;
+            padding: 0 24px;
+        }
+
+        .breadcrumb {
+            font-size: 15px;
+            color: #94a3b8;
+            margin-bottom: 20px;
+        }
+
+        .page-title {
+            margin-bottom: 28px;
+        }
+
+        .page-title h1 {
+            font-size: 32px;
+            margin: 0 0 9px;
+        }
+
+        .page-title p {
+            color: #64748b;
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 26px;
+            align-items: start;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 38px;
+            box-shadow: 0 3px 12px rgba(15,23,42,.03);
+        }
+
+        .card h2 {
+            font-size: 22px;
+            margin: 0 0 9px;
+        }
+
+        .card-description {
+            color: #64748b;
+            font-size: 15px;
+            margin-bottom: 28px;
+            line-height: 1.5;
+        }
+
+        label {
+            display: block;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 9px;
+            color: #334155;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 15px 16px;
+            border: 1px solid #cbd5e1;
+            border-radius: 7px;
+            font-family: inherit;
+            font-size: 16px;
+            margin-bottom: 8px;
+            outline: none;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37,99,235,.09);
+        }
+
+        textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .field {
+            margin-bottom: 22px;
+        }
+
+        .errorlist {
+            color: #dc2626;
+            font-size: 14px;
+            list-style: none;
+            padding: 0;
+            margin: 4px 0 0;
+        }
+
+        .non-field-errors {
+            color: #991b1b;
+            background: #fee2e2;
+            border: 1px solid #fecaca;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 22px;
+            font-size: 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 30px;
+            background: #1e3a5f;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 7px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #274c77;
+        }
+
+        .side-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 28px;
+        }
+
+        .side-card h3 {
+            font-size: 18px;
+            margin: 0 0 20px;
+        }
+
+        .info-item {
+            display: flex;
+            gap: 13px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        .info-icon {
+            width: 34px;
+            height: 34px;
+            flex-shrink: 0;
+            background: #eff6ff;
+            color: #2563eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+
+        .info-item strong {
+            display: block;
+            color: #334155;
+            margin-bottom: 4px;
+        }
+
+        .notice {
+            background: #f8fafc;
+            border-left: 3px solid #2563eb;
+            padding: 16px;
+            font-size: 14px;
+            color: #64748b;
+            line-height: 1.6;
+            margin-top: 22px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 28px;
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        @media(max-width: 700px) {
+            .content { grid-template-columns: 1fr; }
+            .header { padding: 18px 22px; }
+            .main { margin-top: 28px; }
+            .card { padding: 26px; }
+        }
     </style>
 </head>
-<body>
-    <div class="container">
-        <div class="nav">
-            <h2>Nuevo Préstamo</h2>
-            <a href="{% url 'logout' %}" class="btn" style="background:#ef4444;">Cerrar Sesión</a>
-        </div>
-        
-        {% if form.non_field_errors %}
-            <div style="color: red; background: #fee2e2; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
-                {{ form.non_field_errors }}
-            </div>
-        {% endif %}
 
-        <form method="POST">
-            {% csrf_token %}
-            <label>Equipo:</label>
-            {{ form.equipo }} {{ form.equipo.errors }}
-            <label>Fecha Devolución:</label>
-            {{ form.fecha_devolucion }} {{ form.fecha_devolucion.errors }}
-            <label>Cantidad:</label>
-            {{ form.cantidad }} {{ form.cantidad.errors }}
-            <label>Observaciones:</label>
-            {{ form.observaciones }} {{ form.observaciones.errors }}
-            <button type="submit" class="btn">Solicitar</button>
-        </form>
+<body>
+
+<header class="header">
+    <div>
+        <div class="header-title">UNCP | Laboratorio</div>
+        <div class="header-subtitle">Sistema de Gestión de Préstamos</div>
     </div>
+
+    <a href="{% url 'logout' %}" class="logout">
+        Cerrar sesión
+    </a>
+</header>
+
+<main class="main">
+
+    <div class="breadcrumb">
+        Inicio / Gestión de préstamos / Nuevo préstamo
+    </div>
+
+    <div class="page-title">
+        <h1>Solicitar préstamo</h1>
+        <p>Completa los datos para registrar una nueva solicitud de equipo.</p>
+    </div>
+
+    <div class="content">
+
+        <section class="card">
+
+            <h2>Información de la solicitud</h2>
+            <p class="card-description">
+                Registra los datos del equipo y las condiciones de devolución.
+                Verifica la información antes de enviar.
+            </p>
+
+            {% if form.non_field_errors %}
+                <div class="non-field-errors">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="field">
+                    <label>Equipo:</label>
+                    {{ form.equipo }}
+                    {{ form.equipo.errors }}
+                </div>
+
+                <div class="field">
+                    <label>Fecha de devolución:</label>
+                    {{ form.fecha_devolucion }}
+                    {{ form.fecha_devolucion.errors }}
+                </div>
+
+                <div class="field">
+                    <label>Cantidad:</label>
+                    {{ form.cantidad }}
+                    {{ form.cantidad.errors }}
+                </div>
+
+                <div class="field">
+                    <label>Observaciones:</label>
+                    {{ form.observaciones }}
+                    {{ form.observaciones.errors }}
+                </div>
+
+                <button type="submit" class="btn">
+                    Enviar solicitud
+                </button>
+
+            </form>
+
+        </section>
+
+        <aside class="side-card">
+
+            <h3>Información importante</h3>
+
+            <div class="info-item">
+                <div class="info-icon">01</div>
+                <div>
+                    <strong>Selecciona el equipo</strong>
+                    Elige el equipo que necesitas solicitar.
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-icon">02</div>
+                <div>
+                    <strong>Indica la devolución</strong>
+                    Establece la fecha prevista para devolver el equipo.
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-icon">03</div>
+                <div>
+                    <strong>Verifica tu solicitud</strong>
+                    Comprueba que los datos registrados sean correctos.
+                </div>
+            </div>
+
+            <div class="notice">
+                <strong>Recomendación:</strong><br>
+                Devuelve los equipos en las condiciones en que fueron entregados
+                y respeta la fecha de devolución registrada.
+            </div>
+
+        </aside>
+
+    </div>
+
+</main>
+
+<footer>
+    Universidad Nacional del Centro del Perú · Sistema de Gestión de Laboratorio · 2026
+</footer>
+
 </body>
 </html>
