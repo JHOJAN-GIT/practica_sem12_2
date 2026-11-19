@@ -1,1 +1,14 @@
 [2026-11-19 13:17:26.488268] USER: caso03 | ACCIÓN: /login/
+[2026-11-19 13:25:00.535548] USER: juan | ACCIÓN: /login/
+[2026-11-19 13:29:36.427669] USER: juan | ACCIÓN: /permiso/
+[2026-11-19 13:30:17.140677] USER: juan | ACCIÓN: /permiso/
+[2026-11-19 13:30:56.384942] USER: juan | ACCIÓN: /admin/login/
+[2026-11-19 13:31:53.501861] USER: caso03 | ACCIÓN: /admin/control_rrhh/permiso/
+[2026-11-19 13:32:10.587992] USER: caso03 | ACCIÓN: /admin/control_rrhh/permiso/
+[2026-11-19 13:32:27.269384] USER: caso03 | ACCIÓN: /admin/control_rrhh/permiso/
+[2026-11-19 13:32:42.880045] USER: caso03 | ACCIÓN: /asistencia/
+[2026-11-19 13:33:36.777088] USER: caso03 | ACCIÓN: /permiso/
+[2026-11-19 13:33:53.131102] USER: caso03 | ACCIÓN: /permiso/
+[2026-11-19 13:33:57.592368] USER: caso03 | ACCIÓN: /permiso/
+[2026-11-19 13:34:23.149963] USER: juan | ACCIÓN: /asistencia/
+[2026-11-19 13:34:44.203567] USER: juan | ACCIÓN: /asistencia/
